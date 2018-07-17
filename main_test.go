@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/Jeffail/gabs"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_process(t *testing.T) {
@@ -36,10 +36,7 @@ func Test_process(t *testing.T) {
 			panic(err)
 		}
 
-		jsonParsed, err := gabs.ParseJSONFile("southclaws.json")
-		if err != nil {
-			panic(err)
-		}
+		jsonParsed, _ := gabs.ParseJSON([]byte(defaultSyntax))
 
 		err = process(input, output, jsonParsed)
 		if err != nil {
@@ -61,10 +58,7 @@ func Test_syntax(t *testing.T) {
 	}{
 		{"percent", args{`printf("%s", str);`}, `printf([COLOR="Purple"]"%s"[/COLOR], str);` + "\n"},
 	}
-		jsonParsed, err := gabs.ParseJSONFile("southclaws.json")
-		if err != nil {
-			panic(err)
-		}
+	jsonParsed, _ := gabs.ParseJSON([]byte(defaultSyntax))
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
